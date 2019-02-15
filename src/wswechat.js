@@ -7,7 +7,7 @@ class WsWeChat {
       });
 
       this.ws.onMessage(res => {
-        if (this.onMessage) this.onMessage(res);
+        if (this.onMessage) this.onMessage(res.data);
       });
 
       this.ws.onError(err => {
