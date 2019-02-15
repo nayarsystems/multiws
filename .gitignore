@@ -1,0 +1,6 @@
+.vscode
+dist/
+node_modules/
+flow-typed/
+coverage/
+examples/cordova/cordova/

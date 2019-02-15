@@ -1,0 +1,33 @@
+{
+  "name": "multiws",
+  "version": "1.0.0",
+  "description": "Common API for different websocket implementations",
+  "author": "Angel Jimenez <ajimenez@nayarsystems.com>",
+  "license": "MIT",
+  "repository": "https://github.com/nayarsystems/multiws",
+  "main": "dist/multiws.js",
+  "keywords": [],
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack  --mode development",
+    "watch": "webpack  --watch --mode development",
+    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
+    "prepublishOnly": "rm -rf dist && npm run build",
+    "flow": "flow"
+  },
+  "files": [
+    "dist/multiws.js"
+  ],
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "flow-bin": "^0.83.0",
+    "prettier": "^1.14.3",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {}
+}
