@@ -1,5 +1,3 @@
-const blecordova = require("./blecordova.js");
-const blewechat = require("./blewechat.js");
+const wsweb = require("./wsweb.js");
 
-exports.BleCordova = blecordova.BleCordova;
-exports.BleWeChat = blewechat.BleWeChat;
+exports.WsWeb = wsweb.WsWeb;

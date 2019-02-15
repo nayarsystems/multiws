@@ -3,7 +3,9 @@
   "plugins": ["prettier"],
   "globals": {
     "window": true,
-    "wx": true
+    "wx": true,
+    "WebSocket": true,
+    "FileReader": true
   },
   "rules": {
     "no-underscore-dangle": "off",
@@ -14,6 +16,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "class-methods-use-this": "off",
     "object-shorthand": ["error", "consistent"],
+    "prefer-template": "off",
     "no-restricted-syntax": [
       "error",
       "ForInStatement",

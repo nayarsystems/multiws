@@ -47,41 +47,22 @@
       document.addEventListener(
         "deviceready",
         async () => {
-          let ble = new window.multiws.BleCordova();
+          let ws = new window.multiws.WsWeb();
 
-          console.log(
-            "isConnected:" + (await ble.isConnected("24:0A:C4:04:0D:1A"))
-          );
-
-          console.log("before connect");
-          let dev = await ble.connect("24:0A:C4:04:0D:1A", () => {
-            console.log("closed");
+          ws.setOnMessage(data => {
+            console.log("msg received: ", msgpack.decode(new Uint8Array(data)));
           });
 
-          console.log("connect done: dev=" + JSON.stringify(dev));
-          console.log(
-            "isConnected:" + (await ble.isConnected("24:0A:C4:04:0D:1A"))
-          );
+          ws.setOnClose(() => {
+            console.log("ws closed!");
+          });
 
-          await ble.startNotification(
-            "24:0A:C4:04:0D:1A",
-            "00000000-8134-45d2-a62c-5cc211481e13",
-            "00000001-8134-45d2-a62c-5cc211481e13",
-            data => {
-              console.log("received packet: " + data);
-            }
-          );
-
-          let data = msgpack.encode({ t: "i" });
-          console.log("data: " + data.buffer);
-
-          await ble.writeWithoutResponse(
-            "24:0A:C4:04:0D:1A",
-            "00000000-8134-45d2-a62c-5cc211481e13",
-            "00000001-8134-45d2-a62c-5cc211481e13",
-            data.buffer
-          );
-          console.log("write done");
+          try {
+            await ws.connect("ws://192.168.2.7:8080/ws");
+            ws.send(msgpack.encode({ t: "i" }));
+          } catch (err) {
+            console.log("error connecting " + err);
+          }
         },
         false
       );
