@@ -18,8 +18,9 @@
     under the License.
 -->
 <html>
-  <head>
-    <!--
+
+<head>
+  <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
         Some notes:
@@ -28,44 +29,45 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self' ws: data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>Hello World</title>
-  </head>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' ws: data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello World</title>
+</head>
 
-  <body>
-    <script src="cordova.js"></script>
-    <script src="multiws.js"></script>
-    <script src="msgpack.min.js"></script>
-    <script>
-      document.addEventListener(
-        "deviceready",
-        async () => {
-          let ws = new window.multiws.WsWeb();
+<body>
+  <script src="cordova.js"></script>
+  <script src="multiws.js"></script>
+  <script src="msgpack.min.js"></script>
+  <script>
+    document.addEventListener(
+      "deviceready",
+      async () => {
+        let ws = window.multiws.create();
 
-          ws.setOnMessage(data => {
-            console.log("msg received: ", msgpack.decode(new Uint8Array(data)));
-          });
+        ws.setOnMessage(data => {
+          console.log("msg received: ", msgpack.decode(new Uint8Array(data)));
+        });
 
-          ws.setOnClose(() => {
-            console.log("ws closed!");
-          });
+        ws.setOnClose(() => {
+          console.log("ws closed!");
+        });
 
+        setTimeout(async () => {
           try {
-            await ws.connect("ws://192.168.2.7:8080/ws");
-            ws.send(msgpack.encode({ t: "i" }));
+            await ws.connect("ws://demos.kaazing.com/echo");
+            await ws.send(msgpack.encode({ t: "hello" }));
+            console.log("msg sent!");
           } catch (err) {
             console.log("error connecting " + err);
           }
-        },
-        false
-      );
-    </script>
-  </body>
+        }, 1000);
+      },
+      false
+    );
+  </script>
+</body>
+
 </html>
