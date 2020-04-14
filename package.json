@@ -1,6 +1,6 @@
 {
   "name": "multiws",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Common API for different websocket implementations",
   "author": "Angel Jimenez <ajimenez@nayarsystems.com>",
   "license": "MIT",
