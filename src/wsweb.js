@@ -1,3 +1,5 @@
+const logs = require("./logs.js");
+
 class WsWeb {
   async connect(url, protocols) {
     return new Promise((resolve, reject) => {
@@ -12,7 +14,7 @@ class WsWeb {
           };
 
           fileReader.onerror = err => {
-            console.log("error converting blob to arraybuffer", err);
+            logs.log("error converting blob to arraybuffer", err);
           };
 
           fileReader.readAsArrayBuffer(evt.data);

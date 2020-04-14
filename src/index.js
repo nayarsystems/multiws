@@ -1,13 +1,18 @@
 const wsweb = require("./wsweb.js");
 const wswechat = require("./wswechat.js");
+const logs = require("./logs.js");
 
-exports.create = () => {
+exports.create = (options) => {
+  if (options && options.logs === false) {
+    logs.enableLogs(false);
+  }
+
   if (window && window.WebSocket) {
-    console.log("multiws: detected web/Cordova");
+    logs.log("multiws: detected web/Cordova");
     return new wsweb.WsWeb();
   }
   if (global && global.wx) {
-    console.log("multiws: detected WeChat");
+    logs.log("multiws: detected WeChat");
     return new wswechat.WsWeChat();
   }
   throw new Error("Unknown environment");
